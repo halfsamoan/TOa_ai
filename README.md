@@ -142,6 +142,8 @@ python -m toa_ai.cli --help
 
 직접 만든 CSV로 같은 흐름(적재 → 학습 → 리플레이)을 돌려보려면 [`examples/`](examples/)의 `sample_ohlcv.csv`와 안내를 참고하세요.
 
+모든 명령은 결과 JSON을 **stdout**에, 진행 로그는 **stderr**에 출력합니다. 따라서 `toa-ai ... train ... | jq` 가 그대로 동작하고, `--quiet`를 주면 진행 로그까지 꺼서 완전한 무음 JSON이 됩니다(예: `toa-ai --quiet train ... > out.json`).
+
 ### 3. 외부 OHLCV CSV 적재
 
 일반 OHLCV CSV 또는 Binance kline CSV/ZIP을 적재할 수 있습니다.

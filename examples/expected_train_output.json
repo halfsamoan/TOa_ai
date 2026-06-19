@@ -1,0 +1,213 @@
+{
+  "model_id": "toa-policy-v1-2026-06-19T151232Z0000-9dd0e2",
+  "model_path": "data/toa_ai/models/toa-policy-v1-2026-06-19T151232Z0000-9dd0e2.pt",
+  "metadata": {
+    "model_id": "toa-policy-v1-2026-06-19T151232Z0000-9dd0e2",
+    "model_type": "toa_policy_v1_gru",
+    "created_at": "2026-06-19T15:12:32+00:00",
+    "feature_columns": [
+      "return_1",
+      "return_3",
+      "return_6",
+      "return_12",
+      "log_return_1",
+      "range_pct",
+      "body_pct",
+      "upper_wick_pct",
+      "lower_wick_pct",
+      "volume_zscore_20",
+      "volume_ratio_20",
+      "dollar_volume_zscore_20",
+      "vwap_distance",
+      "rsi_14",
+      "macd_hist_pct",
+      "atr_pct_14",
+      "realized_vol_6",
+      "realized_vol_12",
+      "realized_vol_24",
+      "momentum_3",
+      "momentum_6",
+      "momentum_12",
+      "close_position_20",
+      "time_of_day_sin",
+      "time_of_day_cos",
+      "position_flag",
+      "unrealized_pnl_pct",
+      "holding_bars_norm"
+    ],
+    "num_features": 28,
+    "action_classes": {
+      "0": "NO_ACTION",
+      "1": "OPEN_LONG",
+      "2": "HOLD_LONG",
+      "3": "REDUCE_LONG",
+      "4": "CLOSE_LONG"
+    },
+    "timeframe": "1m",
+    "sequence_length": 64,
+    "horizon_bars": 6,
+    "target_return": 0.0035,
+    "stop_return": -0.0025,
+    "hidden_size": 64,
+    "num_layers": 1,
+    "dropout": 0.1,
+    "learning_rate": 0.001,
+    "batch_size": 128,
+    "epochs": 1,
+    "validation_fraction": 0.2,
+    "min_rows_per_symbol": 120
+  },
+  "metrics": {
+    "validation_loss": 1.8023094534873962,
+    "action_accuracy": 0.0660377358490566,
+    "action_entropy": 1.588398814201355,
+    "no_action_ratio": 0.009433962264150943,
+    "return_mae": 0.04201874842006221,
+    "risk_mae": 0.4683083598062677,
+    "prediction_counts": {
+      "NO_ACTION": 2,
+      "OPEN_LONG": 79,
+      "HOLD_LONG": 128,
+      "REDUCE_LONG": 3,
+      "CLOSE_LONG": 0
+    },
+    "position_flag_diagnostics": {
+      "flat_samples": 106,
+      "flat_prediction_counts": {
+        "NO_ACTION": 0,
+        "OPEN_LONG": 79,
+        "HOLD_LONG": 24,
+        "REDUCE_LONG": 3,
+        "CLOSE_LONG": 0
+      },
+      "flat_holding_action_prediction_counts": {
+        "HOLD_LONG": 24,
+        "REDUCE_LONG": 3,
+        "CLOSE_LONG": 0
+      },
+      "flat_holding_action_prediction_ratio": 0.25471698113207547,
+      "position_samples": 106,
+      "position_prediction_counts": {
+        "NO_ACTION": 2,
+        "OPEN_LONG": 0,
+        "HOLD_LONG": 104,
+        "REDUCE_LONG": 0,
+        "CLOSE_LONG": 0
+      },
+      "position_entry_or_no_action_prediction_counts": {
+        "NO_ACTION": 2,
+        "OPEN_LONG": 0
+      },
+      "position_entry_or_no_action_prediction_ratio": 0.018867924528301886
+    },
+    "train_samples": 850,
+    "validation_samples": 212,
+    "total_samples": 1062,
+    "bar_symbol_count": 1,
+    "experience_samples": 0,
+    "skipped_symbols": {},
+    "action_counts": {
+      "NO_ACTION": 426,
+      "OPEN_LONG": 105,
+      "HOLD_LONG": 6,
+      "REDUCE_LONG": 104,
+      "CLOSE_LONG": 421
+    },
+    "history": [
+      {
+        "epoch": 1,
+        "train_loss": 1.8001961197171892,
+        "validation_loss": 1.8023094534873962,
+        "action_accuracy": 0.0660377358490566,
+        "action_entropy": 1.588398814201355,
+        "no_action_ratio": 0.009433962264150943,
+        "return_mae": 0.04201874842006221,
+        "risk_mae": 0.4683083598062677,
+        "prediction_counts": {
+          "NO_ACTION": 2,
+          "OPEN_LONG": 79,
+          "HOLD_LONG": 128,
+          "REDUCE_LONG": 3,
+          "CLOSE_LONG": 0
+        },
+        "position_flag_diagnostics": {
+          "flat_samples": 106,
+          "flat_prediction_counts": {
+            "NO_ACTION": 0,
+            "OPEN_LONG": 79,
+            "HOLD_LONG": 24,
+            "REDUCE_LONG": 3,
+            "CLOSE_LONG": 0
+          },
+          "flat_holding_action_prediction_counts": {
+            "HOLD_LONG": 24,
+            "REDUCE_LONG": 3,
+            "CLOSE_LONG": 0
+          },
+          "flat_holding_action_prediction_ratio": 0.25471698113207547,
+          "position_samples": 106,
+          "position_prediction_counts": {
+            "NO_ACTION": 2,
+            "OPEN_LONG": 0,
+            "HOLD_LONG": 104,
+            "REDUCE_LONG": 0,
+            "CLOSE_LONG": 0
+          },
+          "position_entry_or_no_action_prediction_counts": {
+            "NO_ACTION": 2,
+            "OPEN_LONG": 0
+          },
+          "position_entry_or_no_action_prediction_ratio": 0.018867924528301886
+        }
+      }
+    ],
+    "best_epoch": 1,
+    "best_validation_loss": 1.8023094534873962,
+    "final_epoch_metrics": {
+      "validation_loss": 1.8023094534873962,
+      "action_accuracy": 0.0660377358490566,
+      "action_entropy": 1.588398814201355,
+      "no_action_ratio": 0.009433962264150943,
+      "return_mae": 0.04201874842006221,
+      "risk_mae": 0.4683083598062677,
+      "prediction_counts": {
+        "NO_ACTION": 2,
+        "OPEN_LONG": 79,
+        "HOLD_LONG": 128,
+        "REDUCE_LONG": 3,
+        "CLOSE_LONG": 0
+      },
+      "position_flag_diagnostics": {
+        "flat_samples": 106,
+        "flat_prediction_counts": {
+          "NO_ACTION": 0,
+          "OPEN_LONG": 79,
+          "HOLD_LONG": 24,
+          "REDUCE_LONG": 3,
+          "CLOSE_LONG": 0
+        },
+        "flat_holding_action_prediction_counts": {
+          "HOLD_LONG": 24,
+          "REDUCE_LONG": 3,
+          "CLOSE_LONG": 0
+        },
+        "flat_holding_action_prediction_ratio": 0.25471698113207547,
+        "position_samples": 106,
+        "position_prediction_counts": {
+          "NO_ACTION": 2,
+          "OPEN_LONG": 0,
+          "HOLD_LONG": 104,
+          "REDUCE_LONG": 0,
+          "CLOSE_LONG": 0
+        },
+        "position_entry_or_no_action_prediction_counts": {
+          "NO_ACTION": 2,
+          "OPEN_LONG": 0
+        },
+        "position_entry_or_no_action_prediction_ratio": 0.018867924528301886
+      }
+    },
+    "checkpoint_selection_metric": "validation_loss",
+    "profit_metrics_are_diagnostic_only": true
+  }
+}

@@ -25,6 +25,7 @@ def train_policy_v1(
     model_dir: str | Path = DEFAULT_MODEL_DIR,
     symbols: list[str] | None = None,
     max_symbols: int | None = None,
+    progress: bool = True,
 ) -> dict[str, Any]:
     if torch is None or TOAPolicyNet is None:
         raise RuntimeError("torch가 설치되어 있지 않아 TOA Policy v1을 학습할 수 없습니다.")
@@ -103,7 +104,8 @@ def train_policy_v1(
             best_epoch = epoch + 1
             best_metrics = dict(valid_metrics)
             best_state = copy.deepcopy(model.state_dict())
-        _print_epoch_progress(epoch + 1, config.epochs, history[-1], best_epoch)
+        if progress:
+            _print_epoch_progress(epoch + 1, config.epochs, history[-1], best_epoch)
 
     final_epoch_metrics = _evaluate(model, valid, config.batch_size, device)
     if best_state is not None:

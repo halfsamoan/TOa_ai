@@ -16,7 +16,7 @@ from toa_ai.storage import TOAMemory
 from toa_ai.trainer import train_policy_v1
 
 
-def run_smoke_workflow(db_path: str | Path, epochs: int = 1) -> dict[str, Any]:
+def run_smoke_workflow(db_path: str | Path, epochs: int = 1, progress: bool = True) -> dict[str, Any]:
     memory = TOAMemory(db_path)
     symbols = ["TOA001", "TOA002", "TOA003"]
     for idx, symbol in enumerate(symbols):
@@ -27,6 +27,7 @@ def run_smoke_workflow(db_path: str | Path, epochs: int = 1) -> dict[str, Any]:
         ModelConfig(sequence_length=32, epochs=epochs, min_rows_per_symbol=80, batch_size=64),
         model_dir=model_dir,
         symbols=symbols,
+        progress=progress,
     )
     promo = PromotionGate(
         memory,

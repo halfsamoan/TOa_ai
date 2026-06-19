@@ -22,6 +22,11 @@ from toa_ai.trainer import train_policy_v1
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="TOA AI model platform")
     parser.add_argument("--db-path", default=str(DEFAULT_DB_PATH))
+    parser.add_argument(
+        "--quiet",
+        action="store_true",
+        help="Silence stderr progress logs so stdout stays pure JSON (clean for `| jq`).",
+    )
     sub = parser.add_subparsers(dest="command", required=True)
 
     sub.add_parser("init-db")
@@ -121,6 +126,7 @@ def main(argv: list[str] | None = None) -> int:
             model_dir=args.model_dir,
             symbols=_split_symbols(args.symbols),
             max_symbols=args.max_symbols,
+            progress=not args.quiet,
         )
         print_json(result)
         return 0
@@ -171,7 +177,7 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.command == "smoke-test":
-        print_json(run_smoke_workflow(args.db_path, epochs=args.epochs))
+        print_json(run_smoke_workflow(args.db_path, epochs=args.epochs, progress=not args.quiet))
         return 0
 
     return 2
