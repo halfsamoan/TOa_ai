@@ -92,6 +92,11 @@ def build_feature_frame(
     open_ = data["open"]
     volume = data["volume"].fillna(0.0)
     typical = (high + low + close) / 3.0
+    # TODO(vwap): this is a full-series cumulative VWAP, not a session/day-anchored
+    # VWAP. For multi-day intraday data ``vwap_distance`` therefore measures distance
+    # from an all-time running VWAP rather than the intended intraday (per-session)
+    # VWAP. Fixing it changes feature semantics and requires retraining, so it is
+    # tracked as a separate issue and intentionally left unchanged in this change.
     vwap = (typical * volume).cumsum() / volume.cumsum().replace(0, np.nan)
     dollar_volume = close * volume
 

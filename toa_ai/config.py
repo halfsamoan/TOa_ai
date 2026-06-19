@@ -73,3 +73,7 @@ class ReplayConfig:
     initial_cash: float = 10_000_000.0
     max_episode_bars: int | None = None
     record_experiences: bool = True
+    # Start replay from a clean, isolated paper account by default so repeated runs
+    # are reproducible and existing DB positions never distort ``diagnostic_return``.
+    # Set to False (CLI: --no-reset-paper-state) to restore prior positions instead.
+    reset_paper_state: bool = True

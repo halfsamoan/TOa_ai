@@ -78,14 +78,14 @@ toa-ai/
 
 ## 설치
 
-Python 3.10 이상을 권장합니다.
+Python 3.10 이상을 권장합니다. `pip install`로 패키지와 `toa-ai` 콘솔 명령을 함께 설치합니다.
 
 Windows PowerShell 기준:
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install --upgrade pip
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m pip install -e ".[dev]"
 ```
 
 Linux/macOS:
@@ -93,10 +93,20 @@ Linux/macOS:
 ```bash
 python -m venv .venv
 ./.venv/bin/python -m pip install --upgrade pip
-./.venv/bin/python -m pip install -r requirements.txt
+./.venv/bin/python -m pip install -e ".[dev]"
 ```
 
-PyTorch 설치가 환경별 CUDA/CPU 설정에 따라 실패할 수 있습니다. 그런 경우 [PyTorch 공식 설치 안내](https://pytorch.org/get-started/locally/)에 맞춰 `torch`를 먼저 설치한 뒤 나머지 의존성을 설치하세요.
+`-e`(editable)와 `[dev]`(pytest 포함)는 개발용입니다. 단순 사용이라면 `pip install .` 만으로 충분하며, 기존 방식인 `pip install -r requirements.txt`도 동작합니다.
+
+PyTorch 설치가 환경별 CUDA/CPU 설정에 따라 실패할 수 있습니다. 그런 경우 [PyTorch 공식 설치 안내](https://pytorch.org/get-started/locally/)에 맞춰 `torch`를 먼저 설치한 뒤 `pip install -e .`를 실행하세요. CPU 전용 예시: `pip install --index-url https://download.pytorch.org/whl/cpu torch`.
+
+설치하면 두 가지 방식으로 실행할 수 있습니다.
+
+```bash
+toa-ai --help
+# 또는 (콘솔 스크립트 없이)
+python -m toa_ai.cli --help
+```
 
 ## 빠른 시작
 
@@ -118,7 +128,19 @@ PyTorch 설치가 환경별 CUDA/CPU 설정에 따라 실패할 수 있습니다
 .\.venv\Scripts\python.exe -m toa_ai.cli smoke-test --epochs 1
 ```
 
-성공하면 synthetic bar 적재, 모델 학습, promotion check, replay 결과가 JSON으로 출력됩니다.
+성공하면 synthetic bar 적재, 모델 학습, promotion check, replay 결과가 JSON으로 출력됩니다. 출력 구조 예시는 다음과 같습니다(정확한 숫자는 환경·PyTorch 버전·시드에 따라 달라지며 구조만 동일). 전체 예시는 [`examples/expected_smoke_output.json`](examples/expected_smoke_output.json)에 있습니다.
+
+```jsonc
+{
+  "train":     { "model_id": "...", "metrics": { "validation_loss": 1.07, "action_accuracy": 0.80, "total_samples": 1338 } },
+  "promotion": { "promoted": true },
+  "replay":    { "status": "ok", "decisions": 81, "orders": 0,
+                 "start_equity": 10000000.0, "diagnostic_return": 0.0,
+                 "profit_metrics_are_diagnostic_only": true }
+}
+```
+
+직접 만든 CSV로 같은 흐름(적재 → 학습 → 리플레이)을 돌려보려면 [`examples/`](examples/)의 `sample_ohlcv.csv`와 안내를 참고하세요.
 
 ### 3. 외부 OHLCV CSV 적재
 
@@ -194,6 +216,8 @@ Binance kline 형식임을 명시하려면:
 
 `diagnostic_return`은 연구용 진단값이며, 모델 promote 또는 실거래 판단의 단독 기준으로 쓰면 안 됩니다.
 
+리플레이는 기본적으로 **깨끗한(격리된) paper 계좌**에서 시작합니다. DB에 남아 있는 이전 실행의 포지션을 불러오지 않으므로, 같은 DB에서 반복 실행해도 `diagnostic_return`이 이전 상태 때문에 왜곡되지 않고 재현됩니다. 이전 포지션을 복원해 이어가려면 `--no-reset-paper-state`를 붙이세요. (실시간 누적용 `paper-once`는 항상 기존 포지션을 복원합니다.)
+
 ### 7. 모델 승격
 
 학습된 모델이 promotion 조건을 통과하면 champion으로 승격할 수 있습니다.
@@ -220,7 +244,7 @@ ingest-cache    {symbol}_{timeframe}.csv 로컬 캐시 적재
 ingest-external 일반 CSV 또는 Binance kline CSV/ZIP 적재
 train           GRU policy 모델 학습
 promote         challenger 모델을 champion으로 승격
-replay          과거 데이터 paper replay
+replay          과거 데이터 paper replay (기본 격리 계좌; --no-reset-paper-state로 복원)
 paper-once      최신 bar 기준 1회 paper decision 실행
 status          DB/model 상태 출력
 smoke-test      합성 데이터 기반 end-to-end 점검
@@ -274,6 +298,7 @@ HOME_PC_CODEX_HANDOFF.md
 
 ```powershell
 .\.venv\Scripts\python.exe -m compileall toa_ai
+.\.venv\Scripts\python.exe -m pytest -q
 git diff --check
 ```
 
@@ -283,11 +308,14 @@ git diff --check
 .\.venv\Scripts\python.exe -m toa_ai.cli smoke-test --epochs 1
 ```
 
+`pip install -e ".[dev]"`로 설치하면 `pytest`가 함께 들어옵니다. GitHub Actions CI(`.github/workflows/ci.yml`)가 push/PR마다 Python 3.10·3.12 환경에서 `compileall`, `pytest`, `smoke-test --epochs 1`을 자동 실행합니다.
+
 ## 한계와 주의사항
 
 - 이 코드는 연구용 baseline입니다.
 - 미래 수익, 특정 시장에서의 엣지, 실거래 안정성을 보장하지 않습니다.
 - 단일 종목 long 중심 정책은 시장 국면 변화에 취약할 수 있습니다.
+- `vwap_distance` 피처는 현재 전체 구간 누적 VWAP을 기준으로 계산합니다(세션/당일 anchored VWAP이 아님). 여러 날의 분봉을 넣으면 의도와 다를 수 있어 알려진 한계로 표시해 두었고, 수정하면 피처 의미가 바뀌어 재학습이 필요합니다(코드의 `TODO(vwap)` 주석 참고).
 - replay 수익이 양수여도 거래비용, 슬리피지, 체결 실패, 데이터 누수, 생존편향을 별도로 검증해야 합니다.
 - 실거래 연결 전에는 walk-forward out-of-sample, paper trading, 주문 제한, 장애 대응 로직을 반드시 별도로 검증해야 합니다.
 

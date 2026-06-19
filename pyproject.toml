@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "toa-ai"
+version = "0.1.0"
+description = "Research-first trading-model toolkit: OHLCV ingestion, leakage-aware features, GRU policy training, and paper replay diagnostics."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "halfsamoan" }]
+keywords = ["trading", "research", "ohlcv", "backtesting", "pytorch", "quant"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: BSD License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Office/Business :: Financial :: Investment",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+  "numpy>=1.26.0",
+  "pandas>=2.2.0",
+  "torch>=2.2.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0.0"]
+
+[project.urls]
+Homepage = "https://github.com/halfsamoan/TOa_ai"
+Repository = "https://github.com/halfsamoan/TOa_ai"
+Issues = "https://github.com/halfsamoan/TOa_ai/issues"
+
+[project.scripts]
+toa-ai = "toa_ai.cli:main"
+
+[tool.setuptools]
+packages = ["toa_ai"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

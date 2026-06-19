@@ -1,0 +1,433 @@
+{
+  "train": {
+    "model_id": "toa-policy-v1-2026-06-19T143742Z0000-02250e",
+    "model_path": "data/toa_ai/models/toa-policy-v1-2026-06-19T143742Z0000-02250e.pt",
+    "metadata": {
+      "model_id": "toa-policy-v1-2026-06-19T143742Z0000-02250e",
+      "model_type": "toa_policy_v1_gru",
+      "created_at": "2026-06-19T14:37:42+00:00",
+      "feature_columns": [
+        "return_1",
+        "return_3",
+        "return_6",
+        "return_12",
+        "log_return_1",
+        "range_pct",
+        "body_pct",
+        "upper_wick_pct",
+        "lower_wick_pct",
+        "volume_zscore_20",
+        "volume_ratio_20",
+        "dollar_volume_zscore_20",
+        "vwap_distance",
+        "rsi_14",
+        "macd_hist_pct",
+        "atr_pct_14",
+        "realized_vol_6",
+        "realized_vol_12",
+        "realized_vol_24",
+        "momentum_3",
+        "momentum_6",
+        "momentum_12",
+        "close_position_20",
+        "time_of_day_sin",
+        "time_of_day_cos",
+        "position_flag",
+        "unrealized_pnl_pct",
+        "holding_bars_norm"
+      ],
+      "num_features": 28,
+      "action_classes": {
+        "0": "NO_ACTION",
+        "1": "OPEN_LONG",
+        "2": "HOLD_LONG",
+        "3": "REDUCE_LONG",
+        "4": "CLOSE_LONG"
+      },
+      "timeframe": "5m",
+      "sequence_length": 32,
+      "horizon_bars": 6,
+      "target_return": 0.0035,
+      "stop_return": -0.0025,
+      "hidden_size": 64,
+      "num_layers": 1,
+      "dropout": 0.1,
+      "learning_rate": 0.001,
+      "batch_size": 64,
+      "epochs": 1,
+      "validation_fraction": 0.2,
+      "min_rows_per_symbol": 80
+    },
+    "metrics": {
+      "validation_loss": 1.0730220079421997,
+      "action_accuracy": 0.797752808988764,
+      "action_entropy": 1.496131420135498,
+      "no_action_ratio": 0.49812734082397003,
+      "return_mae": 0.10020048283773024,
+      "risk_mae": 0.2629858802320359,
+      "prediction_counts": {
+        "NO_ACTION": 133,
+        "OPEN_LONG": 0,
+        "HOLD_LONG": 0,
+        "REDUCE_LONG": 44,
+        "CLOSE_LONG": 90
+      },
+      "position_flag_diagnostics": {
+        "flat_samples": 134,
+        "flat_prediction_counts": {
+          "NO_ACTION": 133,
+          "OPEN_LONG": 0,
+          "HOLD_LONG": 0,
+          "REDUCE_LONG": 1,
+          "CLOSE_LONG": 0
+        },
+        "flat_holding_action_prediction_counts": {
+          "HOLD_LONG": 0,
+          "REDUCE_LONG": 1,
+          "CLOSE_LONG": 0
+        },
+        "flat_holding_action_prediction_ratio": 0.007462686567164179,
+        "position_samples": 133,
+        "position_prediction_counts": {
+          "NO_ACTION": 0,
+          "OPEN_LONG": 0,
+          "HOLD_LONG": 0,
+          "REDUCE_LONG": 43,
+          "CLOSE_LONG": 90
+        },
+        "position_entry_or_no_action_prediction_counts": {
+          "NO_ACTION": 0,
+          "OPEN_LONG": 0
+        },
+        "position_entry_or_no_action_prediction_ratio": 0.0
+      },
+      "train_samples": 1071,
+      "validation_samples": 267,
+      "total_samples": 1338,
+      "bar_symbol_count": 3,
+      "experience_samples": 0,
+      "skipped_symbols": {},
+      "action_counts": {
+        "NO_ACTION": 610,
+        "OPEN_LONG": 59,
+        "REDUCE_LONG": 51,
+        "CLOSE_LONG": 618
+      },
+      "history": [
+        {
+          "epoch": 1,
+          "train_loss": 1.4087666834101957,
+          "validation_loss": 1.0730220079421997,
+          "action_accuracy": 0.797752808988764,
+          "action_entropy": 1.496131420135498,
+          "no_action_ratio": 0.49812734082397003,
+          "return_mae": 0.10020048283773024,
+          "risk_mae": 0.2629858802320359,
+          "prediction_counts": {
+            "NO_ACTION": 133,
+            "OPEN_LONG": 0,
+            "HOLD_LONG": 0,
+            "REDUCE_LONG": 44,
+            "CLOSE_LONG": 90
+          },
+          "position_flag_diagnostics": {
+            "flat_samples": 134,
+            "flat_prediction_counts": {
+              "NO_ACTION": 133,
+              "OPEN_LONG": 0,
+              "HOLD_LONG": 0,
+              "REDUCE_LONG": 1,
+              "CLOSE_LONG": 0
+            },
+            "flat_holding_action_prediction_counts": {
+              "HOLD_LONG": 0,
+              "REDUCE_LONG": 1,
+              "CLOSE_LONG": 0
+            },
+            "flat_holding_action_prediction_ratio": 0.007462686567164179,
+            "position_samples": 133,
+            "position_prediction_counts": {
+              "NO_ACTION": 0,
+              "OPEN_LONG": 0,
+              "HOLD_LONG": 0,
+              "REDUCE_LONG": 43,
+              "CLOSE_LONG": 90
+            },
+            "position_entry_or_no_action_prediction_counts": {
+              "NO_ACTION": 0,
+              "OPEN_LONG": 0
+            },
+            "position_entry_or_no_action_prediction_ratio": 0.0
+          }
+        }
+      ],
+      "best_epoch": 1,
+      "best_validation_loss": 1.0730220079421997,
+      "final_epoch_metrics": {
+        "validation_loss": 1.0730220079421997,
+        "action_accuracy": 0.797752808988764,
+        "action_entropy": 1.496131420135498,
+        "no_action_ratio": 0.49812734082397003,
+        "return_mae": 0.10020048283773024,
+        "risk_mae": 0.2629858802320359,
+        "prediction_counts": {
+          "NO_ACTION": 133,
+          "OPEN_LONG": 0,
+          "HOLD_LONG": 0,
+          "REDUCE_LONG": 44,
+          "CLOSE_LONG": 90
+        },
+        "position_flag_diagnostics": {
+          "flat_samples": 134,
+          "flat_prediction_counts": {
+            "NO_ACTION": 133,
+            "OPEN_LONG": 0,
+            "HOLD_LONG": 0,
+            "REDUCE_LONG": 1,
+            "CLOSE_LONG": 0
+          },
+          "flat_holding_action_prediction_counts": {
+            "HOLD_LONG": 0,
+            "REDUCE_LONG": 1,
+            "CLOSE_LONG": 0
+          },
+          "flat_holding_action_prediction_ratio": 0.007462686567164179,
+          "position_samples": 133,
+          "position_prediction_counts": {
+            "NO_ACTION": 0,
+            "OPEN_LONG": 0,
+            "HOLD_LONG": 0,
+            "REDUCE_LONG": 43,
+            "CLOSE_LONG": 90
+          },
+          "position_entry_or_no_action_prediction_counts": {
+            "NO_ACTION": 0,
+            "OPEN_LONG": 0
+          },
+          "position_entry_or_no_action_prediction_ratio": 0.0
+        }
+      },
+      "checkpoint_selection_metric": "validation_loss",
+      "profit_metrics_are_diagnostic_only": true
+    }
+  },
+  "promotion": {
+    "passed": true,
+    "reason": "passed",
+    "checks": {
+      "min_train_samples": true,
+      "min_validation_samples": true,
+      "max_validation_loss": true,
+      "min_action_entropy": true,
+      "max_no_action_ratio": true
+    },
+    "challenger_id": "toa-policy-v1-2026-06-19T143742Z0000-02250e",
+    "champion_id": null,
+    "metrics": {
+      "action_accuracy": 0.797752808988764,
+      "action_counts": {
+        "CLOSE_LONG": 618,
+        "NO_ACTION": 610,
+        "OPEN_LONG": 59,
+        "REDUCE_LONG": 51
+      },
+      "action_entropy": 1.496131420135498,
+      "bar_symbol_count": 3,
+      "best_epoch": 1,
+      "best_validation_loss": 1.0730220079421997,
+      "checkpoint_selection_metric": "validation_loss",
+      "experience_samples": 0,
+      "final_epoch_metrics": {
+        "action_accuracy": 0.797752808988764,
+        "action_entropy": 1.496131420135498,
+        "no_action_ratio": 0.49812734082397003,
+        "position_flag_diagnostics": {
+          "flat_holding_action_prediction_counts": {
+            "CLOSE_LONG": 0,
+            "HOLD_LONG": 0,
+            "REDUCE_LONG": 1
+          },
+          "flat_holding_action_prediction_ratio": 0.007462686567164179,
+          "flat_prediction_counts": {
+            "CLOSE_LONG": 0,
+            "HOLD_LONG": 0,
+            "NO_ACTION": 133,
+            "OPEN_LONG": 0,
+            "REDUCE_LONG": 1
+          },
+          "flat_samples": 134,
+          "position_entry_or_no_action_prediction_counts": {
+            "NO_ACTION": 0,
+            "OPEN_LONG": 0
+          },
+          "position_entry_or_no_action_prediction_ratio": 0.0,
+          "position_prediction_counts": {
+            "CLOSE_LONG": 90,
+            "HOLD_LONG": 0,
+            "NO_ACTION": 0,
+            "OPEN_LONG": 0,
+            "REDUCE_LONG": 43
+          },
+          "position_samples": 133
+        },
+        "prediction_counts": {
+          "CLOSE_LONG": 90,
+          "HOLD_LONG": 0,
+          "NO_ACTION": 133,
+          "OPEN_LONG": 0,
+          "REDUCE_LONG": 44
+        },
+        "return_mae": 0.10020048283773024,
+        "risk_mae": 0.2629858802320359,
+        "validation_loss": 1.0730220079421997
+      },
+      "history": [
+        {
+          "action_accuracy": 0.797752808988764,
+          "action_entropy": 1.496131420135498,
+          "epoch": 1,
+          "no_action_ratio": 0.49812734082397003,
+          "position_flag_diagnostics": {
+            "flat_holding_action_prediction_counts": {
+              "CLOSE_LONG": 0,
+              "HOLD_LONG": 0,
+              "REDUCE_LONG": 1
+            },
+            "flat_holding_action_prediction_ratio": 0.007462686567164179,
+            "flat_prediction_counts": {
+              "CLOSE_LONG": 0,
+              "HOLD_LONG": 0,
+              "NO_ACTION": 133,
+              "OPEN_LONG": 0,
+              "REDUCE_LONG": 1
+            },
+            "flat_samples": 134,
+            "position_entry_or_no_action_prediction_counts": {
+              "NO_ACTION": 0,
+              "OPEN_LONG": 0
+            },
+            "position_entry_or_no_action_prediction_ratio": 0.0,
+            "position_prediction_counts": {
+              "CLOSE_LONG": 90,
+              "HOLD_LONG": 0,
+              "NO_ACTION": 0,
+              "OPEN_LONG": 0,
+              "REDUCE_LONG": 43
+            },
+            "position_samples": 133
+          },
+          "prediction_counts": {
+            "CLOSE_LONG": 90,
+            "HOLD_LONG": 0,
+            "NO_ACTION": 133,
+            "OPEN_LONG": 0,
+            "REDUCE_LONG": 44
+          },
+          "return_mae": 0.10020048283773024,
+          "risk_mae": 0.2629858802320359,
+          "train_loss": 1.4087666834101957,
+          "validation_loss": 1.0730220079421997
+        }
+      ],
+      "no_action_ratio": 0.49812734082397003,
+      "position_flag_diagnostics": {
+        "flat_holding_action_prediction_counts": {
+          "CLOSE_LONG": 0,
+          "HOLD_LONG": 0,
+          "REDUCE_LONG": 1
+        },
+        "flat_holding_action_prediction_ratio": 0.007462686567164179,
+        "flat_prediction_counts": {
+          "CLOSE_LONG": 0,
+          "HOLD_LONG": 0,
+          "NO_ACTION": 133,
+          "OPEN_LONG": 0,
+          "REDUCE_LONG": 1
+        },
+        "flat_samples": 134,
+        "position_entry_or_no_action_prediction_counts": {
+          "NO_ACTION": 0,
+          "OPEN_LONG": 0
+        },
+        "position_entry_or_no_action_prediction_ratio": 0.0,
+        "position_prediction_counts": {
+          "CLOSE_LONG": 90,
+          "HOLD_LONG": 0,
+          "NO_ACTION": 0,
+          "OPEN_LONG": 0,
+          "REDUCE_LONG": 43
+        },
+        "position_samples": 133
+      },
+      "prediction_counts": {
+        "CLOSE_LONG": 90,
+        "HOLD_LONG": 0,
+        "NO_ACTION": 133,
+        "OPEN_LONG": 0,
+        "REDUCE_LONG": 44
+      },
+      "profit_metrics_are_diagnostic_only": true,
+      "return_mae": 0.10020048283773024,
+      "risk_mae": 0.2629858802320359,
+      "skipped_symbols": {},
+      "total_samples": 1338,
+      "train_samples": 1071,
+      "validation_loss": 1.0730220079421997,
+      "validation_samples": 267
+    },
+    "config": {
+      "min_train_samples": 100,
+      "min_validation_samples": 20,
+      "max_validation_loss": 5.0,
+      "min_action_entropy": 0.01,
+      "max_no_action_ratio": 1.0,
+      "challenger_loss_tolerance": 0.05
+    },
+    "profit_metrics_are_diagnostic_only": true,
+    "promoted": true,
+    "event_id": "promo_fd108ee55ea648de"
+  },
+  "replay": {
+    "symbol": "TOA001",
+    "status": "ok",
+    "episode_id": "episode_d5feee03836d4acb",
+    "bars": 112,
+    "input_bars": 260,
+    "start_date": null,
+    "end_date": null,
+    "data_start": "2026-01-01T00:00:00+00:00",
+    "data_end": "2026-01-01T21:35:00+00:00",
+    "decisions": 81,
+    "orders": 0,
+    "raw_policy_action_counts": {
+      "NO_ACTION": 30,
+      "REDUCE_LONG": 12,
+      "CLOSE_LONG": 39
+    },
+    "policy_action_counts": {
+      "NO_ACTION": 30,
+      "REDUCE_LONG": 12,
+      "CLOSE_LONG": 39
+    },
+    "selected_action_counts": {
+      "NO_ACTION": 81
+    },
+    "gated_action_counts": {
+      "NO_ACTION": 81
+    },
+    "gate_reason_counts": {
+      "allowed": 81
+    },
+    "accepted_counts": {
+      "accepted": 81
+    },
+    "action_counts": {
+      "NO_ACTION": 81
+    },
+    "start_equity": 10000000.0,
+    "final_equity": 10000000.0,
+    "diagnostic_return": 0.0,
+    "profit_metrics_are_diagnostic_only": true
+  },
+  "db_path": "data/toa_ai/toa_memory.sqlite3"
+}

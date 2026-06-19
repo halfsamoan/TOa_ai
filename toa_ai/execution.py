@@ -14,12 +14,20 @@ class PaperBroker:
         initial_cash: float = 10_000_000.0,
         cost_config: CostConfig | None = None,
         risk_config: RiskConfig | None = None,
+        load_positions: bool = True,
     ) -> None:
         self.memory = memory
         self.cost_config = cost_config or CostConfig()
         self.risk_config = risk_config or RiskConfig()
         self.account = AccountState(cash=float(initial_cash), equity=float(initial_cash))
-        self._load_positions()
+        # When ``load_positions`` is False the broker starts from a clean, isolated
+        # paper account and does NOT restore positions from the DB. Replay/backtests
+        # use this so diagnostic returns are reproducible and never polluted by
+        # leftover position state from a previous run.
+        if load_positions:
+            self._load_positions()
+        else:
+            self._refresh_equity()
 
     def mark(self, symbol: str, price: float) -> None:
         if symbol in self.account.positions:

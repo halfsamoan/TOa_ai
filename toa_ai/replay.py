@@ -30,7 +30,12 @@ def run_replay_for_symbol(
 ) -> dict[str, Any]:
     replay_config = replay_config or ReplayConfig()
     risk = RiskGovernor(risk_config)
-    broker = PaperBroker(memory, initial_cash=replay_config.initial_cash, risk_config=risk.config)
+    broker = PaperBroker(
+        memory,
+        initial_cash=replay_config.initial_cash,
+        risk_config=risk.config,
+        load_positions=not replay_config.reset_paper_state,
+    )
     data = memory.load_bars(symbol, timeframe=timeframe)
     data = _filter_replay_dates(data, start_date=start_date, end_date=end_date)
     if len(data) < sequence_length + 2:

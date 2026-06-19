@@ -62,6 +62,13 @@ def main(argv: list[str] | None = None) -> int:
     replay.add_argument("--max-episode-bars", type=int, default=200)
     replay.add_argument("--start-date", default=None)
     replay.add_argument("--end-date", default=None)
+    replay.add_argument(
+        "--no-reset-paper-state",
+        action="store_true",
+        help="Restore existing paper positions from the DB before replay "
+        "(default: start from a clean, isolated paper account so repeated "
+        "runs are reproducible).",
+    )
 
     paper = sub.add_parser("paper-once")
     paper.add_argument("--model-id", default="champion")
@@ -134,7 +141,10 @@ def main(argv: list[str] | None = None) -> int:
                 symbol,
                 timeframe=args.timeframe,
                 sequence_length=args.sequence_length,
-                replay_config=ReplayConfig(max_episode_bars=args.max_episode_bars),
+                replay_config=ReplayConfig(
+                    max_episode_bars=args.max_episode_bars,
+                    reset_paper_state=not args.no_reset_paper_state,
+                ),
                 start_date=args.start_date,
                 end_date=args.end_date,
             )
