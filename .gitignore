@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Local trading/research artifacts
+data/
+models/
+reports/
+logs/
+*.sqlite
+*.sqlite3
+*.db
+*.pt
+*.pth
+*.pkl
+*.joblib
+
+# Local handoff/private notes
+HOME_PC_CODEX_HANDOFF.md
